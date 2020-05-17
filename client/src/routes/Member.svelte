@@ -1,10 +1,11 @@
 <script>
+  import { ProfileStore, currentItem } from './../api/store';
   import { pop } from 'svelte-spa-router';
+  import request from '../api/api_functions';
   import PageTitle from '../components/PageTitle.svelte';
-  import https from 'https';
-  export let params = {};
+  export let params = { new: '', id: '' };
 
-  let profile = {
+  export let profile = {
     name: '',
     phoneNumber: '',
     dob: '',
@@ -17,40 +18,20 @@
     maritalStatus: ''
   };
 
-  var http = require('http');
+  if (params.new === 'false') profile = $currentItem;
 
-  var options = {
-    method: 'PATCH',
-    hostname: ['localhost'],
-    port: '3000',
-    path: ['/profile'],
-    headers: {
-      'cache-control': 'no-cache'
-    }
-  };
-
-  function PostOrPatch(post = true) {
-    var req = http.request(options, function(res) {
-      var chunks = [];
-
-      res.on('data', function(chunk) {
-        chunks.push(chunk);
-      });
-
-      res.on('end', function() {
-        var body = Buffer.concat(chunks);
-        console.log(body.toString());
-      });
-    });
-    const data = JSON.stringify(profile);
-    req.write(data);
-    req.end();
+  function createMember() {
+    request('POST');
   }
 
-  function deleteMember() {}
+  function updateMember() {
+    request('PATCH');
+  }
 </script>
 
-<PageTitle title="Add New Member" />
+<PageTitle
+  title="{params.new === 'true' ? 'Add New Member' : 'Edit Member Info'}"
+/>
 
 <div class="px-4 py-10 overflow-y-auto h-120 ">
   <div class="flex items-center mx-auto justify-evenly">
@@ -61,7 +42,8 @@
         id="name"
         placeholder="Name"
         bind:value="{profile.name}"
-        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded w-80"
+        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded
+        w-80"
       />
     </div>
 
@@ -72,7 +54,8 @@
         id="postal-address"
         placeholder="Postal Address"
         bind:value="{profile.postalAddress}"
-        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded w-80"
+        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded
+        w-80"
       />
     </div>
   </div>
@@ -100,7 +83,8 @@
           id="phone"
           placeholder="Phone Number"
           bind:value="{profile.phoneNumber}"
-          class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded w-80"
+          class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded
+          w-80"
         />
       </div>
     </div>
@@ -112,7 +96,8 @@
         id="branch"
         placeholder="Branch"
         bind:value="{profile.branch}"
-        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded w-80"
+        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded
+        w-80"
       />
     </div>
   </div>
@@ -124,7 +109,8 @@
         type="date"
         id="dob"
         placeholder="Date of Birth"
-        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded w-80"
+        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded
+        w-80"
       />
     </div>
 
@@ -134,7 +120,8 @@
         type="text"
         id="house-address"
         placeholder="House Address"
-        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded w-80"
+        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded
+        w-80"
       />
     </div>
   </div>
@@ -146,9 +133,10 @@
         id="nationality"
         placeholder="Nationality"
         bind:value="{profile.nationality}"
-        class="px-4 py-2 placeholder-gray-500 bg-white border border-gray-400 rounded w-80"
+        class="px-4 py-2 placeholder-gray-500 bg-white border border-gray-400
+        rounded w-80"
       >
-        <option class="disable">-- select option --</option>
+        <option class="cursor-not-allowed">-- select option --</option>
         <option value="Ghana">Ghana</option>
         <option value="Togo">Togo</option>
       </select>
@@ -161,7 +149,8 @@
         id="child-count"
         placeholder="No. of children"
         bind:value="{profile.childCount}"
-        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded w-80"
+        class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded
+        w-80"
       />
     </div>
   </div>
@@ -173,23 +162,25 @@
         id="gender"
         placeholder="Gender"
         bind:value="{profile.gender}"
-        class="px-4 py-2 placeholder-gray-500 bg-white border border-gray-400 rounded w-80"
+        class="px-4 py-2 placeholder-gray-500 bg-white border border-gray-400
+        rounded w-80"
       >
-        <option>-- select option --</option>
+        <option class="cursor-not-allowed">-- select option --</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
       </select>
     </div>
 
     <div class="flex flex-col">
-      <label for="statuss">Marital status:</label>
+      <label for="status">Marital status:</label>
       <select
-        id="statuss"
+        id="status"
         placeholder="Marital status"
         bind:value="{profile.maritalStatus}"
-        class="px-4 py-2 placeholder-gray-500 bg-white border border-gray-400 rounded w-80"
+        class="px-4 py-2 placeholder-gray-500 bg-white border border-gray-400
+        rounded w-80"
       >
-        <option>-- select option --</option>
+        <option class="cursor-not-allowed" value="">-- select option --</option>
         <option value="Married">Married</option>
         <option value="Single">Single</option>
         <option value="Divorced">Divorced</option>
@@ -200,14 +191,16 @@
 
   <div class="flex justify-end px-6 py-4 mr-48">
     <button
-      class="px-4 py-2 mr-6 bg-transparent rounded-md outline-none cursor-pointer focus:outline-none hover:text-white hover:bg-primary"
+      class="px-4 py-2 mr-6 bg-transparent rounded-md outline-none
+      cursor-pointer focus:outline-none hover:text-white hover:bg-primary"
       on:click="{() => pop()}"
     >
       Cancel
     </button>
     <button
-      class="px-4 py-2 bg-gray-200 rounded-md outline-none cursor-pointer focus:outline-none hover:text-white hover:bg-primary"
-      on:click|preventDefault="{() => PostOrPatch(params.new === 'true' ? 'POST' : 'PATCH')}"
+      class="px-4 py-2 bg-gray-200 rounded-md outline-none cursor-pointer
+      focus:outline-none hover:text-white hover:bg-primary"
+      on:click|preventDefault="{params.new === 'true' ? createMember : updateMember}"
     >
       Save
     </button>
