@@ -77,8 +77,7 @@
       <div class="flex flex-col">
         <label for="phone">Phone Number:</label>
         <input
-          type="number"
-          min="10"
+          type="text"
           max="10"
           id="phone"
           placeholder="Phone Number"
