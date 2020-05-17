@@ -4,26 +4,44 @@
   export let position = 'bottom-right';
   export let msg = '';
   export let msgs = [];
-  export let type = '';
-  let pos =
-    position === 'top-left'
-      ? 'top-0 left-0 mt-4 ml-6'
-      : position === 'top-right'
-      ? 'top-0 right-0 mt-4 mr-6'
-      : position === 'bottom-left'
-      ? 'bottom-0 left-0 mb-4 ml-6'
-      : 'bottom-0 right-0 mb-4 mr-6';
-  let x = position.includes('left') ? -20 : 20;
-  let color =
-    type === 'success'
-      ? 'green'
-      : type === 'error'
-      ? 'red'
-      : type === 'warning'
-      ? 'yellow'
-      : type === 'info'
-      ? 'blue'
-      : 'gray';
+  export let toastType = 'success';
+  export let duration = 3000;
+  let pos = '',
+    color = '';
+  let x = 20;
+  $: {
+    pos =
+      position === 'top-left'
+        ? 'top-0 left-0 mt-4 ml-6'
+        : position === 'top-right'
+        ? 'top-0 right-0 mt-4 mr-6'
+        : position === 'bottom-left'
+        ? 'bottom-0 left-0 mb-4 ml-6'
+        : 'bottom-0 right-0 mb-4 mr-6';
+    x = position.includes('left') ? -20 : 20;
+    color =
+      toastType === 'success'
+        ? 'green'
+        : toastType === 'error'
+        ? 'red'
+        : toastType === 'warning'
+        ? 'yellow'
+        : toastType === 'info'
+        ? 'blue'
+        : 'red';
+
+    console.log(
+      'Tast',
+      toastType,
+      typeof toastType,
+      color,
+      toastType === 'success'
+    );
+  }
+  $: {
+    let t = setTimeout(() => (show = false), duration);
+    if (t) clearTimeout(t);
+  }
 </script>
 
 {#if show}
@@ -46,7 +64,12 @@
         </ul>
       {:else}
         {msg}
-        <span class="px-2 font-bold cursor-pointer">x</span>
+        <span
+          class="px-2 font-bold cursor-pointer"
+          on:click="{() => (show = false)}"
+        >
+          x
+        </span>
       {/if}
     </span>
   </div>

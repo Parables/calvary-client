@@ -7,9 +7,13 @@
   import request from './api/api_functions';
 
   let show = false;
-  let isEdit = false;
+  let path = 'root';
   let ID = '';
   let label = '';
+  let toastType = '';
+  let toastMsg = '';
+  let route = '/';
+
   let routes = {
     '/': Home,
     '/members/:new/:id?': Members
@@ -21,24 +25,35 @@
   }
 
   function routeLoaded(event) {
-    console.info('Caught event routeLoaded', event.detail);
-    let location = `${event.detail.location}`;
-    if (location.toString().includes('false')) {
-      isEdit = true;
+    route = event.detail.location;
+  }
+
+  $: {
+    console.info('Caught event routeLoaded', route);
+    if (route === '/') {
+      label = 'Register member';
+    } else if (route === ' /members/false') {
       let a = location.split('/');
       ID = a[3];
       label = 'Delete member';
-    } else {
-      isEdit = false;
-      ID = '';
-      label = 'Register member';
     }
   }
 
-  /*   //Listen to your custom event
+  //Listen to your custom event
   window.addEventListener('onresponse', function(e) {
     console.log('printer state changed', e.detail);
-  }); */
+    show = true;
+    let success =
+      Number.parseInt(e.detail.status) >= 200 &&
+      Number.parseInt(e.detail.status) <= 299;
+    toastType =
+      e.detail.toastType !== '' && e.detail.toastType !== undefined
+        ? e.detail.toastType
+        : success
+        ? 'success'
+        : 'error';
+    toastMsg = e.detail.statusText;
+  });
 </script>
 
 <!-- Parent Body -->
@@ -57,12 +72,11 @@
 
       <button
         class="px-4 py-2 bg-gray-200 rounded-md outline-none cursor-pointer
-        focus:outline-none hover:text-white hover:bg-primary"
-        on:click="{() => (isEdit ? request('DELETE', 'profile', ID) : push('/members/true'))}"
+        focus:outline-none hover:text-white hover:bg-primary {route === '/members/true' ? 'invisible' : 'visible'}"
+        on:click="{() => (route === '/' ? push('/members/true') : request('DELETE', 'profile', ID))}"
       >
         {label}
       </button>
-
     </div>
     <!-- Router -->
     <div id="content" class="flex-1 px-4 pt-2 mt-2 overflow-hidden ">
@@ -72,11 +86,7 @@
         on:routeLoaded="{routeLoaded}"
       />
     </div>
-    <label>
-      <input type="checkbox" bind:checked="{show}" />
-      Toast Msg
-    </label>
 
-    <Toast {show} position="top-right" type="error" msg="Success" />
+    <Toast {show} position="bottom-right" {toastType} bind:msg="{toastMsg}" />
   </div>
 </div>

@@ -21,11 +21,11 @@
   if (params.new === 'false') profile = $currentItem;
 
   function createMember() {
-    request('POST');
+    request('POST', 'profile', profile);
   }
 
   function updateMember() {
-    request('PATCH');
+    request('PATCH', 'profile', profile);
   }
 </script>
 
