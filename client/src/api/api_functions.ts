@@ -7,11 +7,11 @@ type Routes = "profile" | "profiles" | "search"
 export default async function request(method: Methods, route: Routes, data?: any) {
     try {
         console.log(data)
-        let response = method === "GET" ? await axios.get(`https://calvary-api.herokuapp.com/${route}`) :
-            method === "SEARCH" ? await axios.get(`https://calvary-api.herokuapp.com/search?${data}`) :
-                method === "POST" ? await axios.post(`https://calvary-api.herokuapp.com/${route}`, JSON.parse(JSON.stringify(data))) :
-                    method === "PATCH" ? await axios.patch(`https://calvary-api.herokuapp.com/${route}`, JSON.parse(JSON.stringify(data))/* { "name": "Emman", "id": "5ebfaf4363ba99002587e485" } */) :
-                        method === "DELETE" ? await axios.delete(`https://calvary-api.herokuapp.com/${route}`, { data: { "id": data } }) : await axios.get(`https://calvary-api.herokuapp.com/${route}`);
+        let response = method === "GET" ? await axios.get(`http://0.0.0.0:3000/${route}`) :
+            method === "SEARCH" ? await axios.get(`http://0.0.0.0:3000/search?${data}`) :
+                method === "POST" ? await axios.post(`http://0.0.0.0:3000/${route}`, JSON.parse(JSON.stringify(data))) :
+                    method === "PATCH" ? await axios.patch(`http://0.0.0.0:3000/${route}`, JSON.parse(JSON.stringify(data))/* { "name": "Emman", "id": "5ebfaf4363ba99002587e485" } */) :
+                        method === "DELETE" ? await axios.delete(`http://0.0.0.0:3000/${route}`, { data: { "id": data } }) : await axios.get(`http://0.0.0.0:3000/${route}`);
         console.log(response);
         if (response) {
             method === "GET" ? ProfileStore.init(response.data) :

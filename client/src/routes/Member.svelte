@@ -14,7 +14,7 @@
     postalAddress: '',
     branch: '',
     houseAddress: '',
-    childCount: 1,
+    childCount: 0,
     maritalStatus: ''
   };
 
@@ -108,6 +108,7 @@
         type="date"
         id="dob"
         placeholder="Date of Birth"
+        bind:value="{profile.dob}"
         class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded
         w-80"
       />
@@ -119,6 +120,7 @@
         type="text"
         id="house-address"
         placeholder="House Address"
+        bind:value="{profile.houseAddress}"
         class="px-4 py-2 placeholder-gray-500 border border-gray-400 rounded
         w-80"
       />
