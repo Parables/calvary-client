@@ -32,10 +32,11 @@
     console.info('Caught event routeLoaded', route);
     if (route === '/') {
       label = 'Register member';
-    } else if (route === ' /members/false') {
-      let a = location.split('/');
+    } else if (route >= ' /members/false') {
+      let a = route.split('/');
       ID = a[3];
       label = 'Delete member';
+      console.log(label, ID);
     }
   }
 
@@ -87,6 +88,13 @@
       />
     </div>
 
-    <Toast {show} position="bottom-right" {toastType} bind:msg="{toastMsg}" />
+    <Toast
+      bind:show
+      position="bottom-right"
+      {toastType}
+      bind:msg="{toastMsg}"
+      on:toastclosed="{() => (show = false)}"
+      duration="5000"
+    />
   </div>
 </div>

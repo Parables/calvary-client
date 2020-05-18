@@ -25,6 +25,10 @@
   }
 
   function updateMember() {
+    delete profile._id;
+    delete profile.__v;
+    if (profile.dob === null) profile.dob = '';
+    profile.id = params.id;
     request('PATCH', 'profile', profile);
   }
 </script>

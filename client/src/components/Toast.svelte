@@ -1,4 +1,5 @@
 <script>
+  import { createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
   export let show = false;
   export let position = 'bottom-right';
@@ -6,6 +7,9 @@
   export let msgs = [];
   export let toastType = 'success';
   export let duration = 3000;
+
+  const dispatch = createEventDispatcher();
+  let t;
   let pos = '',
     color = '';
   let x = 20;
@@ -39,8 +43,9 @@
     );
   }
   $: {
-    let t = setTimeout(() => (show = false), duration);
     if (t) clearTimeout(t);
+    t = setTimeout(() => (show = false), duration);
+    dispatch('toastclosed', { show: false });
   }
 </script>
 
@@ -66,7 +71,10 @@
         {msg}
         <span
           class="px-2 font-bold cursor-pointer"
-          on:click="{() => (show = false)}"
+          on:click="{() => {
+            show = false;
+            dispatch('toastclosed', { show: false });
+          }}"
         >
           x
         </span>
