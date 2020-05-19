@@ -1,4 +1,7 @@
 <script>
+  import SignUp from './routes/SignUp.svelte';
+  import SignIn from './routes/SignIn.svelte';
+
   import Toast from './components/Toast.svelte';
   import Router from 'svelte-spa-router';
   import Home from './routes/Home.svelte';
@@ -16,6 +19,8 @@
 
   let routes = {
     '/': Home,
+    '/signin': SignIn,
+    '/signup': SignUp,
     '/members/:new/:id?': Members
   };
 
@@ -32,7 +37,7 @@
     console.info('Caught event routeLoaded', route);
     if (route === '/') {
       label = 'Register member';
-    } else if (route >= ' /members/false') {
+    } else if (route.includes('/members/false')) {
       let a = route.split('/');
       ID = a[3];
       label = 'Delete member';
@@ -43,6 +48,7 @@
   //Listen to your custom event
   window.addEventListener('onresponse', function(e) {
     console.log('printer state changed', e.detail);
+
     show = true;
     let success =
       Number.parseInt(e.detail.status) >= 200 &&
@@ -73,7 +79,7 @@
 
       <button
         class="px-4 py-2 bg-gray-200 rounded-md outline-none cursor-pointer
-        focus:outline-none hover:text-white hover:bg-primary {route === '/members/true' ? 'invisible' : 'visible'}"
+        focus:outline-none hover:text-white hover:bg-primary {route.includes('/members/false') ? 'visible' : 'invisible'}"
         on:click="{() => (route === '/' ? push('/members/true') : request('DELETE', 'profile', ID))}"
       >
         {label}

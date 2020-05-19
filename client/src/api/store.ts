@@ -30,7 +30,7 @@ function searchByID(allData, id) {
 
 function profileStore() {
     return {
-        init: (data) => PROFILE_STORE.set(data),
+        init: (data) => Array.isArray(data) ? PROFILE_STORE.set(data) : PROFILE_STORE.set([]),
         subscribe: PROFILE_STORE.subscribe,
         addProfile: (data) => PROFILE_STORE.update(allProfiles => [...allProfiles, data]),
         updateProfile: (data) => PROFILE_STORE.update(allProfiles => updateStore(allProfiles, data)),
