@@ -18,8 +18,8 @@
   let route = '/';
 
   let routes = {
-    '/': Home,
-    '/signin': SignIn,
+    '/': SignIn,
+    '/home': Home,
     '/signup': SignUp,
     '/members/:new/:id?': Members
   };

@@ -14,30 +14,33 @@ export default async function request(method: Methods, route: Routes, data?: any
                         method === "DELETE" ? await axios.delete(`http://0.0.0.0:3000/${route}`, { data: { "id": data } }) : await axios.get(`http://0.0.0.0:3000/${route}`);
         console.log(response);
         if (response) {
-            method === "GET" ? ProfileStore.init(response.data) :
-                method === "POST" ? ProfileStore.addProfile(response.data) :
-                    method === "PATCH" ? ProfileStore.updateProfile(response.data) :
-                        method === "DELETE" ? ProfileStore.deleteProfile(response.data) :
-                            console.log("Ignoring this one")
+            if (response.headers["content-type"] === "text/html; charset=utf-8" && JSON.stringify(response.data).includes("/signin")) {
+                window.location.replace("/#/signin")
+            } else {
+                method === "GET" ? ProfileStore.init(response.data) :
+                    method === "POST" ? ProfileStore.addProfile(response.data) :
+                        method === "PATCH" ? ProfileStore.updateProfile(response.data) :
+                            method === "DELETE" ? ProfileStore.deleteProfile(response.data) :
+                                console.log("Ignoring this one")
 
-            var evt = new CustomEvent('onresponse', {
-                detail: {
-                    status: response.status,
-                    statusText: response.status >= 200 && response.status <= 299 ?
-                        method === "GET" ? "Fetching data is complete" :
-                            method === "POST" ? "New member added successfully" :
-                                method === "PATCH" ? "Member info updated successfully" :
-                                    method === "DELETE" ? "Member deleted successfully" : ""
-                        : `An error occured ${response.statusText}`
-                }
-            });
-            window.dispatchEvent(evt);
-            if (method === "POST" || method === "PATCH" || method === "DELETE") window.location.replace("/")
-            return response
+                var evt = new CustomEvent('onresponse', {
+                    detail: {
+                        status: response.status,
+                        statusText: response.status >= 200 && response.status <= 299 ?
+                            method === "GET" ? "Fetching data is complete" :
+                                method === "POST" ? `New ${route} added successfully` :
+                                    method === "PATCH" ? `${route} info updated successfully` :
+                                        method === "DELETE" ? `${route} deleted successfully` : ""
+                            : `An error occured ${response.statusText}`
+                    }
+                });
+                window.dispatchEvent(evt);
+                if (method === "POST" || method === "PATCH" || method === "DELETE") window.location.replace("/")
+                return response
+            }
         }
     } catch (error) {
-
-        if (JSON.stringify(error).includes("401")) window.location.replace("/#/signin")
+        //   if (JSON.stringify(error).includes("401")) window.location.replace("/#/signin")
         console.log("Error throw", error)
         var errEvt = new CustomEvent('onresponse', {
             detail: {

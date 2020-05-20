@@ -1,10 +1,21 @@
 <script>
-  import request from '../api/api_functions';
+  import axios from 'axios';
 
   let user = {
     username: '',
     password: ''
   };
+
+  async function signin() {
+    console.log(user);
+    /* const response = await fetch('http://0.0.0.0:3000/signin', {
+      method: 'POST',
+      body: JSON.stringify(user)
+    }); */
+    const response = await axios.post('http://0.0.0.0:3000/signin', user);
+    console.log('SIGN IN', response);
+    //  if (response.data) window.location.replace('/');
+  }
 </script>
 
 <div class="bg-gray-200 h-screen font-sans antialiased pt-22">
@@ -12,10 +23,11 @@
     <h1 class="text-center font-sans text-primary font-semibold">
       Welcome, please sign into your account
     </h1>
-    <form action="http://0.0.0.0:3000/signin" method="POST">
+    <form>
       <input
         type="text"
         id="username"
+        name="username"
         autocomplete="username"
         placeholder="johndoe@gmail.com"
         bind:value="{user.username}"
@@ -25,6 +37,7 @@
       <input
         type="password"
         id="password"
+        name="password"
         placeholder="password"
         autocomplete="current-password"
         bind:value="{user.password}"
@@ -32,13 +45,13 @@
         rounded w-80 block mx-auto"
       />
 
-      <input
-        type="button"
+      <button
         class="px-4 py-2 mb-4 rounded-md cursor-pointer self-center bg-primary
         text-white font-sans mx-auto block"
-        value="Sign In"
-        on:click|preventDefault="{request('POST', 'signin', user)}"
-      />
+        on:click|preventDefault="{signin}"
+      >
+        Sign In
+      </button>
     </form>
     <p class="text-center text-gray-500 text-xs">
       &copy;2020 ParaSoft Dev Studio. All rights reserved.
