@@ -46,12 +46,10 @@
     renderHTML = JSON.stringify(e.detail.data).includes('/signin');
     if (renderHTML) htmlString = e.detail.data;
     console.log('Render HTML is', renderHTML, htmlString);
-    htmlString = htmlString
-      .replace('method="post" action="/signin"', '')
-      .replace('<!--', '')
-      .replace('-->', '');
-
-    console.log('HTML', htmlString);
+    htmlString = htmlString.replace(
+      '/signin',
+      'https://calvary-api.herokuapp.com/signin'
+    );
     show = true;
     let success =
       Number.parseInt(e.detail.status) >= 200 &&

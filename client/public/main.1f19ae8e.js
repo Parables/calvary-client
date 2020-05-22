@@ -44778,7 +44778,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 const {
   console: console_1
 } = _internal.globals;
-const file = "App.svelte"; // (95:6) {:else}
+const file = "App.svelte"; // (93:6) {:else}
 
 function create_else_block(ctx) {
   let current;
@@ -44820,11 +44820,11 @@ function create_else_block(ctx) {
     block,
     id: create_else_block.name,
     type: "else",
-    source: "(95:6) {:else}",
+    source: "(93:6) {:else}",
     ctx
   });
   return block;
-} // (93:6) {#if renderHTML}
+} // (91:6) {#if renderHTML}
 
 
 function create_if_block(ctx) {
@@ -44855,7 +44855,7 @@ function create_if_block(ctx) {
     block,
     id: create_if_block.name,
     type: "if",
-    source: "(93:6) {#if renderHTML}",
+    source: "(91:6) {#if renderHTML}",
     ctx
   });
   return block;
@@ -44956,20 +44956,20 @@ function create_fragment(ctx) {
       t4 = (0, _internal.space)();
       (0, _internal.create_component)(toast.$$.fragment);
       (0, _internal.attr_dev)(h1, "class", "p-4 font-sans text-xl font-semibold text-primary");
-      (0, _internal.add_location)(h1, file, 78, 6, 2150);
+      (0, _internal.add_location)(h1, file, 76, 6, 2087);
       (0, _internal.attr_dev)(button, "class", button_class_value = "px-4 py-2 bg-gray-200 rounded-md outline-none cursor-pointer\n        focus:outline-none hover:text-white hover:bg-primary " + (
       /*route*/
       ctx[7].includes("/members/false") ? "visible" : "invisible"));
-      (0, _internal.add_location)(button, file, 82, 6, 2260);
+      (0, _internal.add_location)(button, file, 80, 6, 2197);
       (0, _internal.attr_dev)(div0, "class", "inset-x-0 flex items-center justify-between px-4 py-4 bg-white\n      shadow-md z-1500");
-      (0, _internal.add_location)(div0, file, 74, 4, 2033);
+      (0, _internal.add_location)(div0, file, 72, 4, 1970);
       (0, _internal.attr_dev)(div1, "id", "content");
       (0, _internal.attr_dev)(div1, "class", "flex-1 px-4 pt-2 mt-2 overflow-hidden ");
-      (0, _internal.add_location)(div1, file, 91, 4, 2644);
+      (0, _internal.add_location)(div1, file, 89, 4, 2581);
       (0, _internal.attr_dev)(div2, "class", "flex relative flex-col flex-1 pb-4 overflow-hidden bg-gray-100");
-      (0, _internal.add_location)(div2, file, 72, 2, 1932);
+      (0, _internal.add_location)(div2, file, 70, 2, 1869);
       (0, _internal.attr_dev)(div3, "class", "flex h-screen font-sans antialiased");
-      (0, _internal.add_location)(div3, file, 69, 0, 1855);
+      (0, _internal.add_location)(div3, file, 67, 0, 1792);
     },
     l: function claim(nodes) {
       throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -45115,8 +45115,7 @@ function instance($$self, $$props, $$invalidate) {
     $$invalidate(1, renderHTML = JSON.stringify(e.detail.data).includes("/signin"));
     if (renderHTML) $$invalidate(2, htmlString = e.detail.data);
     console.log("Render HTML is", renderHTML, htmlString);
-    $$invalidate(2, htmlString = htmlString.replace("method=\"post\" action=\"/signin\"", "").replace("<!--", "").replace("-->", ""));
-    console.log("HTML", htmlString);
+    $$invalidate(2, htmlString = htmlString.replace("/signin", "https://calvary-api.herokuapp.com/signin"));
     $$invalidate(0, show = true);
     let success = Number.parseInt(e.detail.status) >= 200 && Number.parseInt(e.detail.status) <= 299;
     $$invalidate(5, toastType = e.detail.toastType !== "" && e.detail.toastType !== undefined ? e.detail.toastType : success ? "success" : "error");
@@ -45267,7 +45266,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "35765" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36317" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
