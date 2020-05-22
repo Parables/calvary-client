@@ -32,7 +32,7 @@
 
   $: {
     console.info('Caught event routeLoaded', route);
-    if (route === '/home') {
+    if (route.includes('/home')) {
       label = 'Register member';
     } else if (route.includes('/members/false')) {
       ID = route.split('/')[3];
@@ -71,8 +71,8 @@
 
       <button
         class="px-4 py-2 bg-gray-200 rounded-md outline-none cursor-pointer
-        focus:outline-none hover:text-white hover:bg-primary {route.includes('/members/false') ? 'visible' : 'invisible'}"
-        on:click="{() => (route === '/home' ? push('/members/true') : request('DELETE', 'profile', ID))}"
+        focus:outline-none hover:text-white hover:bg-primary {route === '/' ? 'visible' : 'invisible'}"
+        on:click="{() => (route.includes('/home') ? push('/members/true') : request('DELETE', 'profile', ID))}"
       >
         {label}
       </button>
