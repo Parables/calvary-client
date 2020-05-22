@@ -30,7 +30,7 @@ export default async function request(method: Methods, route: Routes, data?: any
                 }
             });
             window.dispatchEvent(evt);
-            if (method === "POST" || method === "PATCH" || method === "DELETE") window.location.replace("/home")
+            if (method === "POST" || method === "PATCH" || method === "DELETE") window.location.replace("/#/home")
             return response
         }
     } catch (error) {

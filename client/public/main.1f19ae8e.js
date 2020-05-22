@@ -3940,30 +3940,30 @@ function create_fragment(ctx) {
       p = (0, _internal.element)("p");
       p.textContent = "©2020 ParaSoft Dev Studio. All rights reserved.";
       (0, _internal.attr_dev)(h1, "class", "text-center font-sans text-primary font-semibold");
-      (0, _internal.add_location)(h1, file, 21, 4, 527);
+      (0, _internal.add_location)(h1, file, 21, 4, 529);
       (0, _internal.attr_dev)(input0, "type", "text");
       (0, _internal.attr_dev)(input0, "id", "username");
       (0, _internal.attr_dev)(input0, "name", "username");
       (0, _internal.attr_dev)(input0, "autocomplete", "username");
       (0, _internal.attr_dev)(input0, "placeholder", "johndoe@gmail.com");
       (0, _internal.attr_dev)(input0, "class", "mt-4 px-4 py-2 placeholder-gray-500 border border-gray-400\n        rounded w-80 block mx-auto");
-      (0, _internal.add_location)(input0, file, 25, 6, 661);
+      (0, _internal.add_location)(input0, file, 25, 6, 663);
       (0, _internal.attr_dev)(input1, "type", "password");
       (0, _internal.attr_dev)(input1, "id", "password");
       (0, _internal.attr_dev)(input1, "name", "password");
       (0, _internal.attr_dev)(input1, "placeholder", "password");
       (0, _internal.attr_dev)(input1, "autocomplete", "current-password");
       (0, _internal.attr_dev)(input1, "class", "my-4 px-4 py-2 placeholder-gray-500 border border-gray-400\n        rounded w-80 block mx-auto");
-      (0, _internal.add_location)(input1, file, 35, 6, 968);
+      (0, _internal.add_location)(input1, file, 35, 6, 970);
       (0, _internal.attr_dev)(button, "class", "px-4 py-2 mb-4 rounded-md cursor-pointer self-center bg-primary\n        text-white font-sans mx-auto block");
-      (0, _internal.add_location)(button, file, 46, 6, 1279);
-      (0, _internal.add_location)(form, file, 24, 4, 648);
+      (0, _internal.add_location)(button, file, 46, 6, 1281);
+      (0, _internal.add_location)(form, file, 24, 4, 650);
       (0, _internal.attr_dev)(p, "class", "text-center text-gray-500 text-xs");
-      (0, _internal.add_location)(p, file, 54, 4, 1509);
+      (0, _internal.add_location)(p, file, 54, 4, 1511);
       (0, _internal.attr_dev)(div0, "class", "mx-auto w-1/3 bg-white rounded-lg shadow px-6 py-10 ");
-      (0, _internal.add_location)(div0, file, 20, 2, 456);
+      (0, _internal.add_location)(div0, file, 20, 2, 458);
       (0, _internal.attr_dev)(div1, "class", "bg-gray-200 h-screen font-sans antialiased pt-22");
-      (0, _internal.add_location)(div1, file, 19, 0, 391);
+      (0, _internal.add_location)(div1, file, 19, 0, 393);
     },
     l: function claim(nodes) {
       throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -4043,7 +4043,7 @@ function instance($$self, $$props, $$invalidate) {
     console.log(user);
     const response = await _axios.default.post("https://calvary-api.herokuapp.com/signin", JSON.parse(JSON.stringify(user)));
     console.log("SIGN IN", response);
-    if (response.data) window.location.replace("/home");
+    if (response.data) window.location.replace("/#/home");
   }
 
   const writable_props = [];
@@ -43267,7 +43267,7 @@ function request(method, route, data) {
               }
             });
             window.dispatchEvent(evt);
-            if (method === "POST" || method === "PATCH" || method === "DELETE") window.location.replace("/home");
+            if (method === "POST" || method === "PATCH" || method === "DELETE") window.location.replace("/#/home");
             return [2
             /*return*/
             , response];

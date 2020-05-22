@@ -13,7 +13,7 @@
       JSON.parse(JSON.stringify(user))
     );
     console.log('SIGN IN', response);
-    if (response.data) window.location.replace('/home');
+    if (response.data) window.location.replace('/#/home');
   }
 </script>
 
