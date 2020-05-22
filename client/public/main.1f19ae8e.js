@@ -45086,20 +45086,20 @@ function create_fragment(ctx) {
       t4 = (0, _internal.space)();
       (0, _internal.create_component)(toast.$$.fragment);
       (0, _internal.attr_dev)(h1, "class", "p-4 font-sans text-xl font-semibold text-primary");
-      (0, _internal.add_location)(h1, file, 67, 6, 1783);
+      (0, _internal.add_location)(h1, file, 67, 6, 1782);
       (0, _internal.attr_dev)(button, "class", button_class_value = "px-4 py-2 bg-gray-200 rounded-md outline-none cursor-pointer\n        focus:outline-none hover:text-white hover:bg-primary " + (
       /*route*/
-      ctx[5] === "/" ? "visible" : "invisible"));
-      (0, _internal.add_location)(button, file, 71, 6, 1893);
+      ctx[5] === "/" ? "invisible" : "visible"));
+      (0, _internal.add_location)(button, file, 71, 6, 1892);
       (0, _internal.attr_dev)(div0, "class", "inset-x-0 flex items-center justify-between px-4 py-4 bg-white\n      shadow-md z-1500");
-      (0, _internal.add_location)(div0, file, 63, 4, 1666);
+      (0, _internal.add_location)(div0, file, 63, 4, 1665);
       (0, _internal.attr_dev)(div1, "id", "content");
       (0, _internal.attr_dev)(div1, "class", "flex-1 px-4 pt-2 mt-2 overflow-hidden ");
-      (0, _internal.add_location)(div1, file, 80, 4, 2268);
+      (0, _internal.add_location)(div1, file, 80, 4, 2266);
       (0, _internal.attr_dev)(div2, "class", "flex relative flex-col flex-1 pb-4 overflow-hidden bg-gray-100");
-      (0, _internal.add_location)(div2, file, 61, 2, 1565);
+      (0, _internal.add_location)(div2, file, 61, 2, 1564);
       (0, _internal.attr_dev)(div3, "class", "flex h-screen font-sans antialiased");
-      (0, _internal.add_location)(div3, file, 58, 0, 1488);
+      (0, _internal.add_location)(div3, file, 58, 0, 1487);
     },
     l: function claim(nodes) {
       throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -45133,7 +45133,7 @@ function create_fragment(ctx) {
       /*route*/
       32 && button_class_value !== (button_class_value = "px-4 py-2 bg-gray-200 rounded-md outline-none cursor-pointer\n        focus:outline-none hover:text-white hover:bg-primary " + (
       /*route*/
-      ctx[5] === "/" ? "visible" : "invisible"))) {
+      ctx[5] === "/" ? "invisible" : "visible"))) {
         (0, _internal.attr_dev)(button, "class", button_class_value);
       }
 
@@ -45232,7 +45232,7 @@ function instance($$self, $$props, $$invalidate) {
   } = $$props;
   (0, _internal.validate_slots)("App", $$slots, []);
 
-  const click_handler = () => route.includes("/home") ? (0, _svelteSpaRouter.push)("/members/true") : (0, _api_functions.default)("DELETE", "profile", ID);
+  const click_handler = () => route.includes("home") ? (0, _svelteSpaRouter.push)("/members/true") : (0, _api_functions.default)("DELETE", "profile", ID);
 
   function toast_show_binding(value) {
     show = value;
@@ -45288,7 +45288,7 @@ function instance($$self, $$props, $$invalidate) {
       $: {
         console.info("Caught event routeLoaded", route);
 
-        if (route.includes("/home")) {
+        if (route.includes("home")) {
           $$invalidate(2, label = "Register member");
         } else if (route.includes("/members/false")) {
           $$invalidate(1, ID = route.split("/")[3]);
