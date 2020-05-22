@@ -8,11 +8,11 @@
 
   async function signin() {
     console.log(user);
-    /* const response = await fetch('http://0.0.0.0:3000/signin', {
+    /* const response = await fetch('https://calvary-api.herokuapp.com/signin', {
       method: 'POST',
       body: JSON.stringify(user)
     }); */
-    const response = await axios.post('http://0.0.0.0:3000/signin', user);
+    const response = await axios.post('https://calvary-api.herokuapp.com/signin', user);
     console.log('SIGN IN', response);
     //  if (response.data) window.location.replace('/');
   }

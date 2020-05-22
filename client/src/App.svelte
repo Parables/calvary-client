@@ -1,15 +1,15 @@
 <script>
-  import SignUp from './routes/SignUp.svelte';
-  import SignIn from './routes/SignIn.svelte';
-
   import Toast from './components/Toast.svelte';
   import Router from 'svelte-spa-router';
   import Home from './routes/Home.svelte';
   import Members from './routes/Member.svelte';
   import { push, replace } from 'svelte-spa-router';
   import request from './api/api_functions';
+  import { onMount } from 'svelte';
 
   let show = false;
+  let renderHTML = false;
+  let htmlString = '';
   let path = 'root';
   let ID = '';
   let label = '';
@@ -18,9 +18,7 @@
   let route = '/';
 
   let routes = {
-    '/': SignIn,
-    '/home': Home,
-    '/signup': SignUp,
+    '/': Home,
     '/members/:new/:id?': Members
   };
 
@@ -38,17 +36,22 @@
     if (route === '/') {
       label = 'Register member';
     } else if (route.includes('/members/false')) {
-      let a = route.split('/');
-      ID = a[3];
+      ID = route.split('/')[3];
       label = 'Delete member';
-      console.log(label, ID);
     }
   }
 
-  //Listen to your custom event
+  //Listen to your custom even
   window.addEventListener('onresponse', function(e) {
     console.log('printer state changed', e.detail);
+    renderHTML = JSON.stringify(e.detail.data).includes('action="/signin"');
+    if (renderHTML) htmlString = e.detail.data;
+    htmlString = htmlString
+      .replace('method="post" action="/signin"', '')
+      .replace('<!--', '')
+      .replace('-->', '');
 
+    console.log('HTML', htmlString);
     show = true;
     let success =
       Number.parseInt(e.detail.status) >= 200 &&
@@ -87,11 +90,15 @@
     </div>
     <!-- Router -->
     <div id="content" class="flex-1 px-4 pt-2 mt-2 overflow-hidden ">
-      <Router
-        {routes}
-        on:conditionsFailed="{conditionsFailed}"
-        on:routeLoaded="{routeLoaded}"
-      />
+      {#if renderHTML}
+        {@html htmlString}
+      {:else}
+        <Router
+          {routes}
+          on:conditionsFailed="{conditionsFailed}"
+          on:routeLoaded="{routeLoaded}"
+        />
+      {/if}
     </div>
 
     <Toast
