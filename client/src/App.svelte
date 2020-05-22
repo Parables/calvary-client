@@ -43,8 +43,9 @@
 
   //Listen to your custom even
   window.addEventListener('onresponse', function(e) {
-    console.log('printer state changed', e.detail);
-    renderHTML = JSON.stringify(e.detail.data).includes('signin');
+    console.log('printer state changed', e.detail.data);
+
+    renderHTML = JSON.stringify(e.detail.data).includes('/signin');
     if (renderHTML) htmlString = e.detail.data;
     htmlString = htmlString
       .replace('method="post" action="/signin"', '')
