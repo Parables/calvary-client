@@ -1,4 +1,5 @@
 <script>
+  import SignIn from './routes/SignIn.svelte';
   import Toast from './components/Toast.svelte';
   import Router from 'svelte-spa-router';
   import Home from './routes/Home.svelte';
@@ -8,17 +9,15 @@
   import { onMount } from 'svelte';
 
   let show = false;
-  let renderHTML = false;
-  let htmlString = '';
-  let path = 'root';
   let ID = '';
   let label = '';
   let toastType = '';
   let toastMsg = '';
-  let route = '/';
+  let route = '/home';
 
   let routes = {
-    '/': Home,
+    '/': SignIn,
+    '/home': Home,
     '/members/:new/:id?': Members
   };
 
@@ -33,7 +32,7 @@
 
   $: {
     console.info('Caught event routeLoaded', route);
-    if (route === '/') {
+    if (route === '/home') {
       label = 'Register member';
     } else if (route.includes('/members/false')) {
       ID = route.split('/')[3];
@@ -41,15 +40,7 @@
     }
   }
 
-  //Listen to your custom even
   window.addEventListener('onresponse', function(e) {
-    renderHTML = JSON.stringify(e.detail.data).includes('/signin');
-    if (renderHTML) htmlString = e.detail.data;
-    console.log('Render HTML is', renderHTML, htmlString);
-    htmlString = htmlString.replace(
-      '/signin',
-      'https://calvary-api.herokuapp.com/signin'
-    );
     show = true;
     let success =
       Number.parseInt(e.detail.status) >= 200 &&
@@ -81,22 +72,18 @@
       <button
         class="px-4 py-2 bg-gray-200 rounded-md outline-none cursor-pointer
         focus:outline-none hover:text-white hover:bg-primary {route.includes('/members/false') ? 'visible' : 'invisible'}"
-        on:click="{() => (route === '/' ? push('/members/true') : request('DELETE', 'profile', ID))}"
+        on:click="{() => (route === '/home' ? push('/members/true') : request('DELETE', 'profile', ID))}"
       >
         {label}
       </button>
     </div>
     <!-- Router -->
     <div id="content" class="flex-1 px-4 pt-2 mt-2 overflow-hidden ">
-      {#if renderHTML}
-        {@html htmlString}
-      {:else}
-        <Router
-          {routes}
-          on:conditionsFailed="{conditionsFailed}"
-          on:routeLoaded="{routeLoaded}"
-        />
-      {/if}
+      <Router
+        {routes}
+        on:conditionsFailed="{conditionsFailed}"
+        on:routeLoaded="{routeLoaded}"
+      />
     </div>
 
     <Toast
