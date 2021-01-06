@@ -20,7 +20,7 @@
   "dependencies": {
     "@types/node": "^13.13.6",
     "alasql": "^0.6.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "immutable": "^4.0.0-rc.12",
     "mongoose": "^5.9.13",
     "parcel-bundler": "^1.12.4",
